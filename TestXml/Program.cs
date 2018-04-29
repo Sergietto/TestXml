@@ -83,6 +83,10 @@ namespace TestXml
             ReadKey();
         }
 
+        /// <summary>
+        /// Последовательно подсчитывает распарсенные из Xml данные.
+        /// </summary>
+        /// <returns>Возвращает результат вычислений.</returns>
         private static int Calculate()
         {
             int result = 0;
@@ -127,7 +131,7 @@ namespace TestXml
                 WriteLine($"С файлом {path} что-то пошло не так: {e.Message}\n");
                 return;
             }
-
+            
             XmlElement xRoot = xDoc.DocumentElement;    // Корень документа, если я правильно понимаю, то это узел Calculations, хотя не то что бы я особо понимаю)
             int countOfNormalCalc = 0;
 
@@ -213,16 +217,7 @@ namespace TestXml
             }
             serializedFiles.Add(path, countOfNormalCalc);
             
-            WriteLine($"Файл: {path}\nРезультат: {Calculate()}\n");
-
-            /*
-            foreach (Calculation calc in calculations)
-            {
-                WriteLine(calc.uid);
-                WriteLine(calc.operand);
-                WriteLine(calc.mod);
-            }
-            */
+            WriteLine($"Файл: {Path.GetFileName(path)}\nРезультат: {Calculate()}\n");
         }
 
         private static Operand GetOperand(string operand)

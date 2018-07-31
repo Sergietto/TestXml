@@ -25,12 +25,9 @@ namespace TestXml
                 path = args[0];
             else
             {
-                path = @"C:\Users\Петя\Desktop\Calculations\";
-                /*
                 WriteLine("Не указан путь к директории, дальнейшая работа невозможна!");
                 ReadKey();
                 return;
-                */
             }
             
             // Получаем все пути до xml-файлов в директории path

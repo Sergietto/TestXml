@@ -25,9 +25,12 @@ namespace TestXml
                 path = args[0];
             else
             {
+                path = @"C:\Users\Петя\Desktop\Calculations\";
+                /*
                 WriteLine("Не указан путь к директории, дальнейшая работа невозможна!");
                 ReadKey();
                 return;
+                */
             }
             
             // Получаем все пути до xml-файлов в директории path
@@ -96,16 +99,16 @@ namespace TestXml
 
                 switch (calculations[i].operand)
                 {
-                    case Operand.Add:
+                    case Operand.add:
                         result += secondOperand;
                         break;
-                    case Operand.Multiply:
+                    case Operand.multiply:
                         result *= secondOperand;
                         break;
-                    case Operand.Divide:
+                    case Operand.divide:
                         result = (secondOperand == 0) ? 0 : result / secondOperand;     // Кривенькая защита от деления на ноль без предупреждений и опознавательных знаков
                         break;
-                    case Operand.Subtract:
+                    case Operand.subtract:
                         result -= secondOperand;
                         break;
                 }
@@ -161,8 +164,9 @@ namespace TestXml
 
                     if (childnode.Attributes.GetNamedItem("name").Value == "operand")
                     {
-                        // Если перечисление получило значение Operand.Unknown - значит что-то пошло не так со значением
-                        calculation.operand = GetOperand(childnode.Attributes.GetNamedItem("value").Value);
+                        if (Enum.TryParse(childnode.Attributes.GetNamedItem("value").Value, out Operand operand))
+                            calculation.operand = operand;
+
 
                         if (calculation.operand == Operand.Unknown)
                         {
@@ -218,23 +222,6 @@ namespace TestXml
             serializedFiles.Add(path, countOfNormalCalc);
             
             WriteLine($"Файл: {Path.GetFileName(path)}\nРезультат: {Calculate()}\n");
-        }
-
-        private static Operand GetOperand(string operand)
-        {
-            switch (operand)
-            {
-                case "add":
-                    return Operand.Add;
-                case "multiply":
-                    return Operand.Multiply;
-                case "divide":
-                    return Operand.Divide;
-                case "subtract":
-                    return Operand.Subtract;
-                default:
-                    return Operand.Unknown;
-            }
         }
     }
 }

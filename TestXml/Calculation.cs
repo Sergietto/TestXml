@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestXml
 {
-    public enum Operand { Unknown, Add, Multiply, Divide, Subtract }
+    public enum Operand { Unknown, add, multiply, divide, subtract }
 
     class Calculation
     {
